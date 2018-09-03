@@ -1,0 +1,13 @@
+canvas {
+	border: 1px solid purple;
+}
+
+table.trl {
+	direction: rtl;
+}
+
+#inner_button {
+    display: table-cell;
+    min-height: 40px;
+    min-width: 60px;
+}
