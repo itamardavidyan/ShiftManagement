@@ -1,3 +1,4 @@
+const manager_name = 'שירה צוקרמן';
 var dvalue = -1;
 
 function createCSV(csv) {
@@ -18,7 +19,7 @@ function createArray() {
     db.collection("users").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             console.log(doc.data());
-            csv += doc.data().id + ',' + doc.data().name + ',' + doc.data().value + ',' + doc.data().comment + '\n';
+            if(doc.data().name != manager_name) csv += doc.data().id + ',' + doc.data().name + ',' + doc.data().value + ',' + doc.data().comment + '\n';
         });
         createCSV(csv);
     });
@@ -43,33 +44,33 @@ export default class ShiftManagement {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><button type="button" class="btn inner" id="inner_button" name="0"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="1"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="2"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="3"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="4"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="5"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="6"> </button></td>
+                        <td><button type="button" class="btn inner" name="18"> </button></td>
+                        <td><button type="button" class="btn inner" name="15"> </button></td>
+                        <td><button type="button" class="btn inner" name="12"> </button></td>
+                        <td><button type="button" class="btn inner" name="9"> </button></td>
+                        <td><button type="button" class="btn inner" name="6"> </button></td>
+                        <td><button type="button" class="btn inner" name="3"> </button></td>
+                        <td><button type="button" class="btn inner" name="0"> </button></td>
                         <td class="tdBold">בוקר</td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="btn inner" id="inner_button" name="7"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="8"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="9"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="10"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="11"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="12"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="13"> </button></td>
+                        <td><button type="button" class="btn inner" name="19"> </button></td>
+                        <td><button type="button" class="btn inner" name="16"> </button></td>
+                        <td><button type="button" class="btn inner" name="13"> </button></td>
+                        <td><button type="button" class="btn inner" name="10"> </button></td>
+                        <td><button type="button" class="btn inner" name="7"> </button></td>
+                        <td><button type="button" class="btn inner" name="4"> </button></td>
+                        <td><button type="button" class="btn inner" name="1"> </button></td>
                         <td class="tdBold">ערב</td>
                     </tr>
                     <tr>
-                        <td><button type="button" class="btn inner" id="inner_button" name="14"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="15"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="16"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="17"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="18"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="19"> </button></td>
-                        <td><button type="button" class="btn inner" id="inner_button" name="20"> </button></td>
+                        <td><button type="button" class="btn inner" name="20"> </button></td>
+                        <td><button type="button" class="btn inner" name="17"> </button></td>
+                        <td><button type="button" class="btn inner" name="14"> </button></td>
+                        <td><button type="button" class="btn inner" name="11"> </button></td>
+                        <td><button type="button" class="btn inner" name="8"> </button></td>
+                        <td><button type="button" class="btn inner" name="5"> </button></td>
+                        <td><button type="button" class="btn inner" name="2"> </button></td>
                         <td class="tdBold">לילה</td>
                     </tr>
                 </tbody>
@@ -161,6 +162,7 @@ export default class ShiftManagement {
 
             firebase.firestore().collection('users').get().then(function(querySnapshot) {
                 querySnapshot.forEach(function(docu) {
+                    if (docu.data().name == manager_name) return;
                     if (docu.data().week == thisWeek) $("#submitT").append("<li>" + docu.data().name + "</li>");
                     else $("#submitF").append("<li>" + docu.data().name + "</li>");
                 });
@@ -169,6 +171,7 @@ export default class ShiftManagement {
 
         $('#closeBtn').on('click', function() {
             $("#myModal").css("display", "none");
+            $("#shiftTable").css("display", "none");
         });
 
         window.onclick = function(event) {
@@ -191,12 +194,17 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         $(document).ready(function(){
             firebase.firestore().collection('users').doc(id).get().then(function(doc) {
-                setDvalue(doc.data().value, setButtons);
-                $("#comment").text(doc.data().comment);
+                if (doc.data().name != manager_name) {
+                    setDvalue(doc.data().value, setButtons);
+                    $("#comment").text(doc.data().comment);
+                }
+                else {
+                    $("#comment").css("display", "none");
+                }
 
                 const name = doc.data().name;
                 $("#dname").text("שם משתמש: " + name);
-                if (name == 'איתמר דודיאן' || name == 'שירה צוקרמן'){
+                if (name == 'איתמר דודיאן' || name == manager_name){
                     $('#export').css("display", "inline");
                     $('#info').css("display", "inline");
                 }
@@ -216,23 +224,13 @@ function setDvalue(value, callback) {
 function setButtons() {
     var value = dvalue;
 
-    var buttons = document.getElementsByTagName('button');
-    for (var i = 0; i < buttons.length; i++) {
-        var button = buttons[i];
-
-        var id = button.getAttribute('id');
-        if (id == "inner_button") {
-            if (shiftCheck(value)) button.style.background='#008000';
-            else button.style.background='#FF0000';
-            value = Math.floor(value / 2);
-        }
+    for (var j=0; j<=20; j++) {
+        var name = j.toString();
+        var button = document.getElementsByName(name)[0];
+        if (value % 2 == 1) button.style.background='#008000';
+        else button.style.background='#FF0000';
+        value = Math.floor(value / 2);
     }
-}
-
-function shiftCheck(shiftValue) {
-    // console.log("value: " + shiftValue);
-    if (shiftValue % 2 == 1) return true;
-    return false;
 }
 
 function save() {
