@@ -1,0 +1,28 @@
+[debug] [2018-09-13T04:04:13.246Z] ----------------------------------------------------------------------
+[debug] [2018-09-13T04:04:13.253Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\MKM\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-09-13T04:04:13.253Z] CLI Version:   4.2.1
+[debug] [2018-09-13T04:04:13.253Z] Platform:      win32
+[debug] [2018-09-13T04:04:13.253Z] Node Version:  v10.6.0
+[debug] [2018-09-13T04:04:13.257Z] Time:          Thu Sep 13 2018 07:04:13 GMT+0300 (Israel Daylight Time)
+[debug] [2018-09-13T04:04:13.257Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-09-13T04:04:13.296Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-09-13T04:04:13.298Z] > authorizing via signed-in user
+[debug] [2018-09-13T04:04:13.304Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-09-13T04:04:13.304Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+
+[debug] [2018-09-13T04:04:13.745Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-13T04:04:13.763Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/shift-management-1649f  
+ 
+[debug] [2018-09-13T04:04:14.765Z] <<< HTTP RESPONSE 200
+[debug] [2018-09-13T04:04:14.767Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/shift-management-1649f  
+ 
+[debug] [2018-09-13T04:04:16.019Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Shift Management\WebSite'...
+[info] 
+[debug] [2018-09-13T04:04:16.025Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/636494746647/clients/_:getWebAppConfig  
+ 
+[debug] [2018-09-13T04:04:16.937Z] <<< HTTP RESPONSE 200
+[info] i  hosting[shift-management-1649f]: Serving hosting files from: public
+[info] +  hosting[shift-management-1649f]: Local server: http://localhost:5000

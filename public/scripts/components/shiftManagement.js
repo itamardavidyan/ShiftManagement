@@ -18,7 +18,6 @@ function createArray() {
 
     db.collection("users").get().then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-            console.log(doc.data());
             if(doc.data().name != manager_name) csv += doc.data().id + ',' + doc.data().name + ',' + doc.data().value + ',' + doc.data().comment + '\n';
         });
         createCSV(csv);
@@ -171,7 +170,6 @@ export default class ShiftManagement {
 
         $('#closeBtn').on('click', function() {
             $("#myModal").css("display", "none");
-            $("#shiftTable").css("display", "none");
         });
 
         window.onclick = function(event) {
@@ -199,7 +197,8 @@ firebase.auth().onAuthStateChanged(function(user) {
                     $("#comment").text(doc.data().comment);
                 }
                 else {
-                    $("#comment").css("display", "none");
+                    $(".comment-group").css("display", "none");
+                    $("#shiftTable").css("display", "none");
                 }
 
                 const name = doc.data().name;
@@ -239,7 +238,7 @@ function save() {
     var today = new Date();
     var week = today.getWeek();
 
-    var comment = $("#comment").val();
+    var comment = $("#comment").val().replace(/\,/g, ';');;
     const value = dvalue;
     const userid = firebase.auth().currentUser.uid;
     firebase.firestore().collection('users').doc(userid).update({
